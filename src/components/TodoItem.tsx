@@ -6,20 +6,20 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
 import styles from './TodoItem.module.scss'
-import { useDispatch } from 'react-redux';
-import { updateTodo } from "../store/todoSlice";
 
 interface TodoItemProps {
   unitElement: ITodo
+  updateHandler(value: string): void
+  deleteHandler(value: string): void
 }
 
-export function TodoItem ({ unitElement }: TodoItemProps) {
-  const dispatch = useDispatch()
+export function TodoItem ({unitElement, updateHandler, deleteHandler}: TodoItemProps) {
   return (
     <ListItem className={styles.elem}>
-      <ListItemButton onClick={() => dispatch(updateTodo(unitElement.id))} dense>
+      <ListItemButton onClick={() => updateHandler(unitElement.id)} dense>
         <ListItemIcon>
           <Checkbox
+            defaultChecked
             checked={unitElement.completed}
           />
         </ListItemIcon>
@@ -29,7 +29,7 @@ export function TodoItem ({ unitElement }: TodoItemProps) {
       </ListItemButton>
 
       <RemoveTodo
-        unitElement={unitElement}
+          deleteHandler={() => deleteHandler(unitElement.id)}
       />
 
     </ListItem>

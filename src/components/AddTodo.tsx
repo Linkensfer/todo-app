@@ -3,16 +3,17 @@ import Button from '@mui/material/Button';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import InputBase from '@mui/material/InputBase';
 import styles from './AddTodo.module.scss'
-import { useDispatch } from 'react-redux';
-import { addTodo } from '../store/todoSlice';
 
-export function AddTodo () {
+interface AddTodoProps {
+  addHandler(value: string): void
+}
+
+export function AddTodo ({addHandler}: AddTodoProps) {
   const [inputText, setInputText] = useState<string>('')
-  const dispatch = useDispatch()
 
   const onClick = () => {
     if (inputText.trim().length) {
-      dispatch(addTodo(inputText))
+      addHandler(inputText)
     }
     setInputText('')
   }

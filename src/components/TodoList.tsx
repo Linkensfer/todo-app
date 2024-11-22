@@ -1,19 +1,23 @@
+import { ITodo } from "../models/models"
 import { TodoItem } from "./TodoItem"
 import List from '@mui/material/List';
 import styles from './TodoList.module.scss'
-import { useSelector } from 'react-redux';
-import { RootState } from "../store";
 
-export function TodoList () {
-  const todos = useSelector((state: RootState) => state.todos.todos)
-  console.log(todos)
+interface TodoListProps {
+  todos: ITodo[]
+  updateHandler(value: string): void
+  deleteHandler(value: string): void
+}
 
+export function TodoList ({todos, updateHandler, deleteHandler}: TodoListProps) {
   return (
     <List className={styles.list}>
       {todos.map(unitElement => (
         <TodoItem
           key={unitElement.id}
           unitElement={unitElement}
+          updateHandler={updateHandler}
+          deleteHandler={deleteHandler}
         />
       ))}
     </List>

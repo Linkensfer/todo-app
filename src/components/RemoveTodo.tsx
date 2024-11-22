@@ -6,16 +6,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
-import { deleteTodo } from '../store/todoSlice';
-import { ITodo } from "../models/models";
 
 interface RemoveTodoProps {
-  unitElement: ITodo
+  deleteHandler(): void
 }
 
-export function RemoveTodo({ unitElement }: RemoveTodoProps) {
-  const dispatch = useDispatch()
+export function RemoveTodo({deleteHandler}: RemoveTodoProps) {
   const [open, setOpen] = useState(false)
 
   const handleClickOpen = () => {
@@ -27,8 +23,8 @@ export function RemoveTodo({ unitElement }: RemoveTodoProps) {
   };
 
   const handleDeleteAndClose = () => {
-    dispatch(deleteTodo(unitElement.id))
-    setOpen(false)
+    deleteHandler()
+    setOpen(false);
   }
 
   return (
